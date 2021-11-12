@@ -1,0 +1,34 @@
+version: "3.8"
+services:
+  db:
+    image: postgres
+    environment:
+      POSTGRES_DB: "ApplicationForCompany"
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "11223344"
+    restart: always
+    volumes:
+      - .:/docker-entrypoint-initdb.d
+  admin:
+    build:
+      context: ./AdminMicroservice
+    command: java -jar ./AdminMicroservice.jar
+    image: 'admin-application'
+    container_name: admin-micro
+  user:
+    build:
+      context: ./UserMicroservice
+    command: java -jar ./UserMicroservice.jar
+    image: 'user-application'
+    container_name: user-micro
+  auth:
+    build:
+      context: ./AuthMicroservice
+    command: java -jar ./AuthMicroservice.jar
+    image: 'auth-application'
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+      - admin
+      - user

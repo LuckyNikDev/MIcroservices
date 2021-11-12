@@ -1,0 +1,24 @@
+spring:
+  application:
+    name: auth
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://db:5432/ApplicationForCompany
+    username: postgres
+    password: 11223344
+
+zuul:
+  routes:
+    admin:
+      url: http://admin-micro:8081/
+      path: /admin/**
+      sensitiveHeaders:
+        - Cookie,Set-Cookie
+    user:
+      url: http://user-micro:8082/
+      path: /orders/**
+      sensitiveHeaders:
+          - Cookie,Set-Cookie
+
+server:
+  port: 8080
