@@ -1,0 +1,100 @@
+databaseChangeLog:
+  - logicalFilePath: db/changelog/db.changelog-lesson1.yaml
+  - changeSet:
+      id: 1
+      author: Mosin
+      changes:
+        - createTable:
+            tableName: users
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: email
+                  type: varchar(255)
+                  constraints:
+                    unique: true
+                    nullable: false
+              - column:
+                  name: first_name
+                  type: varchar(128)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: last_name
+                  type: varchar(128)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: password
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: role
+                  type: varchar(128)
+                  defaultValue: user
+                  constraints:
+                    nullable: false
+              - column:
+                  name: status
+                  type: varchar(30)
+                  defaultValue: ACTIVE
+                  constraints:
+                    nullable: false
+  - changeSet:
+      id: 2
+      author: Mosin
+      comment: "Create users"
+      changes:
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: email
+                  value: "admin@mail.ru"
+              - column:
+                  name: first_name
+                  value: "Admin"
+              - column:
+                  name: last_name
+                  value: "Adminov"
+              - column:
+                  name: password
+                  value: "$2a$12$1YcRLjs42qfmgYtlzsOIAuzqUqZfNvt1j0J38yykxYiRpxNbZuGvO"
+              - column:
+                  name: role
+                  value: "ADMIN"
+              - column:
+                  name: status
+                  value: "ACTIVE"
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: email
+                  value: "user@mail.ru"
+              - column:
+                  name: first_name
+                  value: "User"
+              - column:
+                  name: last_name
+                  value: "Userov"
+              - column:
+                  name: password
+                  value: "$2a$12$Z1I65qUogoU6lL7d2oWEee6jZxBzOKVCz.lwxj.KP9ELaqGBzWWCi"
+              - column:
+                  name: role
+                  value: "USER"
+              - column:
+                  name: status
+                  value: "ACTIVE"
+      rollback:
+        - delete:
+            tableName: users
+            where: username in ('Admin', 'User')

@@ -6,6 +6,9 @@ spring:
     url: jdbc:postgresql://db:5432/ApplicationForCompany
     username: postgres
     password: 11223344
+  jpa:
+    hibernate:
+      ddl-auto: none
 
 zuul:
   routes:
