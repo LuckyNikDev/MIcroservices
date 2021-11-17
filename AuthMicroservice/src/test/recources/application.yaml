@@ -1,0 +1,27 @@
+spring:
+  application:
+    name: auth
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: 11223344
+  jpa:
+    hibernate:
+      ddl-auto: none
+
+zuul:
+  routes:
+    admin:
+      url: http://localhost:8081/
+      path: /admin/**
+      sensitiveHeaders:
+        - Cookie,Set-Cookie
+    user:
+      url: http://localhost:8082/
+      path: /orders/**
+      sensitiveHeaders:
+        - Cookie,Set-Cookie
+
+server:
+  port: 8080

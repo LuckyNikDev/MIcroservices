@@ -47,12 +47,6 @@
 
     <build>
         <plugins>
-<!--            <plugin>-->
-<!--                <groupId>io.jooby</groupId>-->
-<!--                <artifactId>jooby-maven-plugin</artifactId>-->
-<!--                <version>2.10.0</version>-->
-<!--            </plugin>-->
-
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
