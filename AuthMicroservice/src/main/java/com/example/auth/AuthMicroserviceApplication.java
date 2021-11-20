@@ -11,6 +11,6 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 public class AuthMicroserviceApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(com.example.auth.AuthMicroserviceApplication.class, args);
+        SpringApplication.run(AuthMicroserviceApplication.class, args);
     }
 }
