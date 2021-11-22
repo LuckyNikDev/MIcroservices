@@ -27,3 +27,7 @@ VALUES (1, 'admin@mail.ru', 'Admin', 'Adminov', '$2a$12$1YcRLjs42qfmgYtlzsOIAuzq
 INSERT INTO users (id, email, first_name, last_name, password, role, status)
 VALUES (2, 'user@mail.ru', 'User', 'Userov', '$2a$12$Z1I65qUogoU6lL7d2oWEee6jZxBzOKVCz.lwxj.KP9ELaqGBzWWCi', 'USER',
         'ACTIVE');
+
+INSERT INTO users (id, email, first_name, last_name, password, role, status)
+VALUES (3, 'testStatus@mail.ru', 'User', 'Userov', '$2a$12$Z1I65qUogoU6lL7d2oWEee6jZxBzOKVCz.lwxj.KP9ELaqGBzWWCi', 'USER',
+        'BANNED');
