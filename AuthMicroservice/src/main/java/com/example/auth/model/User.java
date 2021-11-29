@@ -25,6 +25,5 @@ public class User {
     @Enumerated(value = EnumType.STRING)
     private Role role;
     @Column(name = "status")
-    @Enumerated(value = EnumType.STRING)
-    private Status status;
+    private boolean status;
 }

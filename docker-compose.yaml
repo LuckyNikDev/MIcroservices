@@ -19,6 +19,8 @@ services:
     command: java -jar ./UserMicroservice.jar
     image: 'user-application'
     container_name: user-micro
+    depends_on:
+      - db
   auth:
     build:
       context: ./AuthMicroservice

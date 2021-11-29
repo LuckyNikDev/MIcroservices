@@ -1,6 +1,5 @@
 package com.example.auth.security;
 
-import com.example.auth.model.Status;
 import com.example.auth.model.User;
 import com.example.auth.reposytory.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +22,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         User user = userRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException("User doesn't exists"));
         return new SecurityUser(user.getEmail(), user.getPassword(),
                 Stream.<SimpleGrantedAuthority>builder().add(new SimpleGrantedAuthority("ROLE_" + user.getRole().name())).build().collect(Collectors.toList()),
-                user.getStatus().equals(Status.ACTIVE));
+                user.isStatus());
     }
 }

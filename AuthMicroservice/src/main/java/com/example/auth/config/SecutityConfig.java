@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -31,9 +30,9 @@ public class SecutityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers(HttpMethod.GET, "/").hasAnyRole(Role.ADMIN.name(), Role.USER.name())
-                .antMatchers(HttpMethod.GET, "/admin/**").hasRole(Role.ADMIN.name())
-                .antMatchers(HttpMethod.GET, "/orders/**").hasAnyRole(Role.ADMIN.name(), Role.USER.name())
+                .antMatchers( "/admin/**").hasRole(Role.ADMIN.name())
+                .antMatchers( "/user/orders").hasAnyRole(Role.ADMIN.name(), Role.USER.name())
+                .antMatchers( "/user/orders/**").hasAnyRole(Role.ADMIN.name())
                 .anyRequest()
                 .authenticated()
                 .and()

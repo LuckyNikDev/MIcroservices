@@ -19,7 +19,7 @@ zuul:
         - Cookie,Set-Cookie
     user:
       url: http://user-micro:8082/
-      path: /orders/**
+      path: /user/**
       sensitiveHeaders:
           - Cookie,Set-Cookie
 
