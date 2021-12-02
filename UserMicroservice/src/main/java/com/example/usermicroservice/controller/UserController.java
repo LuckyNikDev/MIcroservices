@@ -6,8 +6,6 @@ import com.example.usermicroservice.exception.ListIsEmptyException;
 import com.example.usermicroservice.model.Order;
 import com.example.usermicroservice.service.OrderService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,28 +23,17 @@ public class UserController {
 	}
 
 	@GetMapping("/orders")
-	public ResponseEntity<List<Order>> read() throws ListIsEmptyException {
-		final List<Order> orders = orderService.readAll();
-		if (orders.isEmpty()) {
-			throw new ListIsEmptyException("List is empty");
-		} else {
-			return new ResponseEntity<>(orders, HttpStatus.OK);
-		}
+	public List<Order> read() throws ListIsEmptyException {
+		return orderService.readAll();
 	}
 
 	@PostMapping("/orders")
-	public ResponseEntity<?> create(@RequestBody Order order) {
-		orderService.create(order);
-		return new ResponseEntity<>(HttpStatus.CREATED);
+	public Order create(@RequestBody Order order) {
+		return orderService.create(order);
 	}
 
 	@DeleteMapping("/orders/{id}")
-	public ResponseEntity<?> delete(@PathVariable("id") Long id) throws IncorrectIdException {
-		boolean deleted = orderService.delete(id);
-		if (deleted) {
-			return new ResponseEntity<>(HttpStatus.OK);
-		} else {
-			throw new IncorrectIdException("Please, enter the correct id");
-		}
+	public void delete(@PathVariable("id") Long id) throws IncorrectIdException{
+		orderService.delete(id);
 	}
 }

@@ -21,17 +21,17 @@ public class AdminController {
     }
 
     @GetMapping("/orders")
-    public ResponseEntity<List<Order>> read() {
+    public List<Order> read() {
         return userClient.read();
     }
 
     @PostMapping("/orders")
-    public ResponseEntity<?> create(@RequestBody Order order) {
+    public Order create(@RequestBody Order order) {
         return userClient.create(order);
     }
 
     @DeleteMapping("/orders/{id}")
-    public ResponseEntity<?> delete(@PathVariable("id") Long id) {
-        return userClient.delete(id);
+    public void delete(@PathVariable("id") Long id) {
+        userClient.delete(id);
     }
 }

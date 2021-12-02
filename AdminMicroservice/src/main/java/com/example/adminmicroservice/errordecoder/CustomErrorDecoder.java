@@ -8,13 +8,14 @@ import feign.codec.ErrorDecoder;
 public class CustomErrorDecoder implements ErrorDecoder {
 	@Override
 	public Exception decode(String s, Response response) {
+		final ErrorDecoder errorDecoder = new Default();
+
 		switch (response.status()) {
 			case 404:
 				return new ListIsEmptyException("List is empty");
 			case 304:
 				return new IncorrectIdException("Please, enter the correct id");
-			default:
-				return new Exception("Generic error");
 		}
+		return errorDecoder.decode(s, response);
 	}
 }

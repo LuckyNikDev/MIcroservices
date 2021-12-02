@@ -1,3 +1,6 @@
+--liquibase formatted sql
+
+--changeset Nikita:1
 create table users
 (
     id bigserial,
@@ -19,6 +22,21 @@ alter table users
     add constraint users_pk
         primary key (id);
 
+INSERT INTO users (id, email, first_name, last_name, password, role, status)
+VALUES (1, 'admin@mail.ru', 'Admin', 'Adminov', '$2a$12$1YcRLjs42qfmgYtlzsOIAuzqUqZfNvt1j0J38yykxYiRpxNbZuGvO', 'ADMIN',
+        true);
+
+INSERT INTO users (id, email, first_name, last_name, password, role, status)
+VALUES (2, 'user@mail.ru', 'User', 'Userov', '$2a$12$Z1I65qUogoU6lL7d2oWEee6jZxBzOKVCz.lwxj.KP9ELaqGBzWWCi', 'USER',
+        true);
+
+INSERT INTO users (id, email, first_name, last_name, password, role, status)
+VALUES (3, 'testStatus@mail.ru', 'User', 'Userov', '$2a$12$Z1I65qUogoU6lL7d2oWEee6jZxBzOKVCz.lwxj.KP9ELaqGBzWWCi', 'USER',
+        false);
+
+--rollback drop table users;
+
+--changeset Nikita:2
 create table orders
 (
     id bigserial,
@@ -34,19 +52,6 @@ alter table orders
         primary key (id);
 
 
-INSERT INTO users (id, email, first_name, last_name, password, role, status)
-VALUES (1, 'admin@mail.ru', 'Admin', 'Adminov', '$2a$12$1YcRLjs42qfmgYtlzsOIAuzqUqZfNvt1j0J38yykxYiRpxNbZuGvO', 'ADMIN',
-        true);
-
-INSERT INTO users (id, email, first_name, last_name, password, role, status)
-VALUES (2, 'user@mail.ru', 'User', 'Userov', '$2a$12$Z1I65qUogoU6lL7d2oWEee6jZxBzOKVCz.lwxj.KP9ELaqGBzWWCi', 'USER',
-        true);
-
-INSERT INTO users (id, email, first_name, last_name, password, role, status)
-VALUES (3, 'testStatus@mail.ru', 'User', 'Userov', '$2a$12$Z1I65qUogoU6lL7d2oWEee6jZxBzOKVCz.lwxj.KP9ELaqGBzWWCi', 'USER',
-        false);
-
-
 INSERT INTO orders (id, product_name, quantity)
 VALUES (1, 'table', 14);
 
@@ -55,3 +60,5 @@ VALUES (2, 'book', 32);
 
 INSERT INTO orders (id, product_name, quantity)
 VALUES (3, 'phone', 9);
+
+--rollback drop table orders;

@@ -19,7 +19,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        User user = userRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException("User doesn't exists"));
+        return makeSecurityUser(userRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException("User doesn't exists")));
+    }
+
+    private UserDetails makeSecurityUser(User user) {
         return new SecurityUser(user.getEmail(), user.getPassword(),
                 Stream.<SimpleGrantedAuthority>builder().add(new SimpleGrantedAuthority("ROLE_" + user.getRole().name())).build().collect(Collectors.toList()),
                 user.isStatus());
