@@ -5,17 +5,23 @@ import com.example.usermicroservice.exception.ListIsEmptyException;
 import com.example.usermicroservice.model.Order;
 import com.example.usermicroservice.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.boot.context.event.ApplicationReadyEvent;
+import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
+
 
 @Service
 @RequiredArgsConstructor
 public class OrderServiceImpl implements OrderService {
 	private final OrderRepository orderRepository;
-	private List<Order> cache = new ArrayList<>();
-	boolean isInit = false;
+	private List<Order> cache;
+
+	@EventListener(ApplicationReadyEvent.class)
+	public void initCache() {
+		cache = orderRepository.findAll();
+	}
 
 
 	@Override
@@ -23,22 +29,13 @@ public class OrderServiceImpl implements OrderService {
 		cache = orderRepository.findAll();
 	}
 
-	private void initCache() {
-		cache = orderRepository.findAll();
-		isInit = true;
-	}
-
 	@Override
 	public List<Order> readAll() throws ListIsEmptyException {
-		if (!isInit) {
-			this.initCache();
-		}
 		if (cache.isEmpty()) {
 			throw new ListIsEmptyException("List is empty");
 		}
 		return cache;
 	}
-
 
 
 	@Override

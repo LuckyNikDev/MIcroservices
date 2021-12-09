@@ -21,6 +21,7 @@ services:
     container_name: user-micro
     depends_on:
       - db
+      - auth
   auth:
     build:
       context: ./AuthMicroservice
@@ -31,4 +32,3 @@ services:
     depends_on:
       - db
       - admin
-      - user

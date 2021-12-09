@@ -17,4 +17,5 @@ public class ApplicationConfig {
 				.paths(PathSelectors.any())
 				.build();
 	}
+
 }

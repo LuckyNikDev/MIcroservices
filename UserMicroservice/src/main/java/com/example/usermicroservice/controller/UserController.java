@@ -9,18 +9,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
 public class UserController {
 	private final OrderService orderService;
-
-	@GetMapping("/foruser")
-	public String getMessage(@RequestHeader Map headers) {
-		headers.forEach((key, value) -> System.out.println(key + " : " + value));
-		return "Hmm.. Page for user.";
-	}
 
 	@GetMapping("/orders")
 	public List<Order> read() throws ListIsEmptyException {

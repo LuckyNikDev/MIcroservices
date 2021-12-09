@@ -2,8 +2,6 @@ package com.example.adminmicroservice.advices;
 
 import com.example.adminmicroservice.exception.IncorrectIdException;
 import com.example.adminmicroservice.exception.ListIsEmptyException;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
@@ -11,12 +9,12 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 public class DefaultAdvice {
 
 	@ExceptionHandler(ListIsEmptyException.class)
-	public ResponseEntity<String> handlerException(ListIsEmptyException e) {
-		return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+	public String handlerException(ListIsEmptyException e) {
+		return e.getMessage();
 	}
 
 	@ExceptionHandler(IncorrectIdException.class)
-	public ResponseEntity<String> handlerException(IncorrectIdException e) {
-		return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_MODIFIED);
+	public String handlerException(IncorrectIdException e) {
+		return e.getMessage();
 	}
 }
