@@ -5,8 +5,8 @@ import com.example.usermicroservice.exception.ListIsEmptyException;
 import com.example.usermicroservice.model.Order;
 import com.example.usermicroservice.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.boot.context.event.ApplicationReadyEvent;
-import org.springframework.context.event.EventListener;
+import org.springframework.beans.factory.InitializingBean;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,17 +14,12 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class OrderServiceImpl implements OrderService {
+public class OrderServiceImpl implements OrderService, InitializingBean {
 	private final OrderRepository orderRepository;
 	private List<Order> cache;
 
-	@EventListener(ApplicationReadyEvent.class)
-	public void initCache() {
-		cache = orderRepository.findAll();
-	}
-
-
 	@Override
+	@Scheduled(cron = "0 0 1 * * ?")
 	public void refreshCache() {
 		cache = orderRepository.findAll();
 	}
@@ -36,7 +31,6 @@ public class OrderServiceImpl implements OrderService {
 		}
 		return cache;
 	}
-
 
 	@Override
 	public Order create(Order order) {
@@ -50,5 +44,11 @@ public class OrderServiceImpl implements OrderService {
 		} else {
 			throw new IncorrectIdException("Please, enter the correct id");
 		}
+	}
+
+	@Override
+	public void afterPropertiesSet() throws Exception {
+		Thread.sleep(10000);
+		cache = orderRepository.findAll();
 	}
 }
